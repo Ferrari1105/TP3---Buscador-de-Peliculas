@@ -24,10 +24,18 @@ body{
     background-color: rgba(255, 255, 255, 0.2);
     font-weight: bold;
 }
-#search-bar{
+.search-container{
     margin-bottom: 1rem;
-    width: 30%;
+    width: 40%;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+}
+.search-container > input{ 
     opacity: 90%;
+}
+.search-container > button{ 
+    width: 25%;
 }
 .card{
     border: 1px solid black;
@@ -49,6 +57,7 @@ body{
 }
 .foto-card{
     width: 200px;
+    margin: auto;
 }
 .tarjeta{
     border: 2px wheat solid;
