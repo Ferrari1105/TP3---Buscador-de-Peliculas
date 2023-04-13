@@ -89,12 +89,12 @@ const test1 = async () => {
     }
 }
 
-for (let peli of datos) {
+for (let { Title, Poster } of datos) {
     document.getElementById("cards-rating").innerHTML += `
     <div class="card tarjeta">
-        <img class="card-img-top foto-card" src="${peli.Poster}" alt="${peli.Title}">
+        <img class="card-img-top foto-card" src="${Poster}" alt="${Title}">
         <div class="card-body">
-            <p class="card-text">${peli.Title}</p>
+            <p class="card-text">${Title}</p>
         </div>
     </div>
     `
