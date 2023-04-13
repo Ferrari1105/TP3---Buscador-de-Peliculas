@@ -5,7 +5,9 @@ body{
     background-size: cover;
     margin: 0;
 }
-
+.row{
+    margin: 0;
+}
 #banner{
     background: url("./banner.jpg");
     background-size: contain;
@@ -34,7 +36,7 @@ body{
 .card-espacio{
     display: flex;
     padding: 10px;
-    gap: 5em;
+    gap: 3rem;
     margin: 0;
 }
 .negrita{
@@ -44,4 +46,10 @@ body{
     text-align: center;
     background-color: rgba(255, 255, 255, 0.7);
     width: fit-content;
+}
+.foto-card{
+    width: 200px;
+}
+.tarjeta{
+    border: 2px wheat solid;
 }
