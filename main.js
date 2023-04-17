@@ -1,101 +1,86 @@
 
-// http://www.omdbapi.com/?apikey=9141ea63
-// http://www.omdbapi.com/?apikey=9141ea63&i=tt3896198
 
-const datos = [{
-    Actors: "Chris Pratt, Zoe Saldana, Dave Bautista",
-    Awards: "Nominated for 1 Oscar. 15 wins & 60 nominations total",
-    BoxOffice: "$389,813,101",
-    Country: "United States",
-    DVD: "22 Aug 2017",
-    Director: "James Gunn",
-    Genre: "Action, Adventure, Comedy",
-    Language: "English",
-    Metascore: "67",
-    Plot: "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father the ambitious celestial being Ego.",
-    Poster: "https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg%22",
-    Production: "N/A",
-    Rated: "PG-13",
-    Released: "05 May 2017",
-    Response: "True",
-    Runtime: "136 min",
-    Title: "Guardians of the Galaxy Vol. 2",
-    Type: "movie",
-    Website: "N/A",
-    Writer: "James Gunn, Dan Abnett, Andy Lanning",
-    Year: "2017",
-    imdbID: "tt3896198",
-    imdbRating: "7.6",
-    imdbVotes: "695,656",
-},{
-    Actors: "Chris Pratt, Zoe Saldana, Dave Bautista",
-    Awards: "Nominated for 1 Oscar. 15 wins & 60 nominations total",
-    BoxOffice: "$389,813,101",
-    Country: "United States",
-    DVD: "22 Aug 2017",
-    Director: "James Gunn",
-    Genre: "Action, Adventure, Comedy",
-    Language: "English",
-    Metascore: "67",
-    Plot: "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father the ambitious celestial being Ego.",
-    Poster: "https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg%22",
-    Production: "N/A",
-    Rated: "PG-13",
-    Released: "05 May 2017",
-    Response: "True",
-    Runtime: "136 min",
-    Title: "Guardians of the Galaxy Vol. 2",
-    Type: "movie",
-    Website: "N/A",
-    Writer: "James Gunn, Dan Abnett, Andy Lanning",
-    Year: "2017",
-    imdbID: "tt3896198",
-    imdbRating: "7.6",
-    imdbVotes: "695,656",
-},{
-    Actors: "Chris Pratt, Zoe Saldana, Dave Bautista",
-    Awards: "Nominated for 1 Oscar. 15 wins & 60 nominations total",
-    BoxOffice: "$389,813,101",
-    Country: "United States",
-    DVD: "22 Aug 2017",
-    Director: "James Gunn",
-    Genre: "Action, Adventure, Comedy",
-    Language: "English",
-    Metascore: "67",
-    Plot: "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father the ambitious celestial being Ego.",
-    Poster: "https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg%22",
-    Production: "N/A",
-    Rated: "PG-13",
-    Released: "05 May 2017",
-    Response: "True",
-    Runtime: "136 min",
-    Title: "Guardians of the Galaxy Vol. 2",
-    Type: "movie",
-    Website: "N/A",
-    Writer: "James Gunn, Dan Abnett, Andy Lanning",
-    Year: "2017",
-    imdbID: "tt3896198",
-    imdbRating: "7.6",
-    imdbVotes: "695,656",
-}]
 
-const test1 = async () => {
+const test3 = async () => {
     try {
-        const response = await fetch("http://www.omdbapi.com/?apikey=9141ea63&i=tt3896198")
-        const data = await response.json()
-        console.log(data)
+        // 'https://dummyjson.com/products?limit=10&skip=10&select=title,price'
+        //  https://dummyjson.com/products/categories
+        // 'https://dummyjson.com/products/category/smartphones'
+        // "total":100,"skip":0,"limit":30
+        const response = await fetch("https://dummyjson.com/products/categories")
+        const categories = await response.json()
+        const maxDescriptionLength = 100
+        categories.map(async category => {
+            const response = await fetch(`https://dummyjson.com/products/category/${category}`)
+            const section = await response.json()
+            console.log(section.products)
+
+            const container = document.createElement("section")
+            document.getElementById("cards").appendChild(container)
+
+            let title = (category.charAt(0).toUpperCase() + category.slice(1)).replace("-", " ")
+            container.innerHTML = `<h1 class="category-title">${title}</h1>`
+            container.setAttribute("id", `cards-${category}`)
+            container.setAttribute("class", "section-category")
+
+            const containerCards = document.createElement("div")
+            container.appendChild(containerCards)
+            containerCards.setAttribute("id", `cards-container-${category}`)
+            containerCards.setAttribute("class", "section-container-category")
+
+            document.getElementById("dropdown-categories").innerHTML += `<li><button class="dropdown-item" href="#" onclick="dropdownSelector(${category})">${title}</button></li>`
+
+            section.products.map(product => {
+                let desc = product.description
+                if (desc.length > maxDescriptionLength) {
+                    desc = desc.substr(0, maxDescriptionLength) + desc.substr(maxDescriptionLength).split(" ")[0] + "..."
+                }
+                containerCards.innerHTML += `
+                <div class="card tarjeta">
+                    <img class="card-img-top foto-card" src="${product.thumbnail}" alt="${product.title}">
+                    <div class="card-body">
+                        <p class="card-text"><b>${product.title}</b> - ${product.brand}</p>
+                        <p class="card-text">${desc}</p>
+                    </div>      
+                </div>
+                `
+            })
+        })
+        
+        // const { products } = await response.json()
+        // console.log(products)
+        // 
+        // products.map(product => {
+        //     let desc = product.description
+        //     if (desc.length > maxDescriptionLength) {
+        //         desc = desc.substr(0, maxDescriptionLength) + desc.substr(maxDescriptionLength).split(" ")[0] + "..."
+        //     }
+        //     document.getElementById("cards-smartphones").innerHTML += `
+        //     <div class="card tarjeta">
+        //         <img class="card-img-top foto-card" src="${product.thumbnail}" alt="${product.title}">
+        //         <div class="card-body">
+        //             <p class="card-text"><b>${product.title}</b> - ${product.brand}</p>
+        //             <p class="card-text">${desc}</p>
+        //         </div>      
+        //     </div>
+        // `
+        // })
     } catch (err) {
         console.log(err)
     }
 }
+test3()
 
-for (let { Title, Poster } of datos) {
-    document.getElementById("cards-rating").innerHTML += `
-    <div class="card tarjeta">
-        <img class="card-img-top foto-card" src="${Poster}" alt="${Title}">
-        <div class="card-body">
-            <p class="card-text">${Title}</p>
-        </div>
-    </div>
-    `
+const dropdownSelector = category => {
+    document.getElementsByClassName("section-category").map(element => {
+        console.log(element)
+        // if(element.id != category) element.classList.add("d-none")
+    })
+
 }
+
+/*
+document.getElementsByClassName("section-category").map(section => {
+        if (category != section.id) console.log(section.id)
+    })
+*/

@@ -25,43 +25,32 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Categorias
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <ul class="dropdown-menu" id="dropdown-categories">
             </ul>
           </li>
         </ul>
       </div>
-      <button class="btn btn-danger" onclick="test1()">TEST API</button>
+      <button class="btn btn-danger" onclick="" id="testapi">TEST API</button>
     </div>
   </nav>
   <div class="row" id="banner">
-    <h1 class="title">PeliBar: Tomate unas pelis</h1>
+    <h1 class="title"><s>Peli</s>ProductoBar: Tomate unos <s>pelis</s> productos</h1>
     <div class="search-container">
+      <!-- <label>FILTRAR POR CATEGORÍA</label> -->
       <input type="search" class="form-control" id="search-bar">
-      <button class="btn btn-danger" onclick="test1()">BUSCAR</button>
+      <button class="btn btn-danger" onclick="test3()">BUSCAR</button>
     </div>
   </div>
 
   
 
   <div class="row">
-    <h1 class="negrita">Rating</h1>
-    <div class="card-espacio" id="cards-rating"></div>
+    <!-- <h1 class="negrita">SmartPhones</h1> -->
+    <div class="card-espacio" id="cards"></div>
   </div>
 
 </body>
